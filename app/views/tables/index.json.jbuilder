@@ -1,0 +1,1 @@
+json.array! @tables, partial: 'table', as: :table, errors: @errors

@@ -4,8 +4,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   rescue_from ActiveRecord::RecordNotFound do
-    respond_to do |type|
-      type.all  { render :nothing => true, :status => 404 }
-    end
+    @errors = "Not found"
+    render template: 'shared/error.json.jbuilder', status: :not_found
   end
 end

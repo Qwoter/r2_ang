@@ -11,11 +11,28 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141022093754) do
+ActiveRecord::Schema.define(version: 20141024120411) do
 
   create_table "recipes", force: true do |t|
     t.string   "name"
     t.text     "instructions"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "reservations", force: true do |t|
+    t.integer  "table_id"
+    t.datetime "start_time"
+    t.datetime "end_time"
+    t.string   "additional_info"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "reservations", ["start_time", "end_time"], name: "index_reservations_on_start_time_and_end_time", using: :btree
+
+  create_table "tables", force: true do |t|
+    t.string   "number"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

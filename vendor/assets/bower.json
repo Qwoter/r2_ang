@@ -6,6 +6,7 @@
     "angular-route": "latest",
     "angular-resource": "latest",
     "angular-mocks": "latest",
-    "angular-flash": "latest"
+    "angular-growl-v2": "latest",
+    "angular-animate": "latest"
   }
 }

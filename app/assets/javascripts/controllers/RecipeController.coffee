@@ -1,6 +1,6 @@
 controllers = angular.module('controllers')
-controllers.controller("RecipeController", [ '$scope', '$routeParams', '$resource', '$location', 'flash',
-  ($scope,$routeParams,$resource,$location, flash)->
+controllers.controller("RecipeController", [ '$scope', '$routeParams', '$resource', '$location',
+  ($scope,$routeParams,$resource,$location)->
     Recipe = $resource('/recipes/:recipeId', { recipeId: "@id", format: 'json' },
       {
         'save':   {method:'PUT'},
@@ -13,7 +13,6 @@ controllers.controller("RecipeController", [ '$scope', '$routeParams', '$resourc
         ( (recipe)-> $scope.recipe = recipe ),
         ( (httpResponse)->
           $scope.recipe = null
-          flash.error   = "There is no recipe with ID #{$routeParams.recipeId}"
         )
       )
     else
@@ -28,20 +27,15 @@ controllers.controller("RecipeController", [ '$scope', '$routeParams', '$resourc
         $location.path("/")
 
     $scope.save = ->
-      onError = (_httpResponse)-> flash.error = "Something went wrong"
       if $scope.recipe.id
         $scope.recipe.$save(
-          ( ()-> $location.path("/recipes/#{$scope.recipe.id}") ),
-          onError)
+          ( ()-> $location.path("/recipes/#{$scope.recipe.id}") ))
       else
         Recipe.create($scope.recipe,
-          ( (newRecipe)-> $location.path("/recipes/#{newRecipe.id}") ),
-          onError
+          ( (newRecipe)-> $location.path("/recipes/#{newRecipe.id}") )
         )
 
     $scope.delete = ->
       $scope.recipe.$delete()
       $scope.back()
-
-
 ])

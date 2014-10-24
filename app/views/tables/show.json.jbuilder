@@ -1,0 +1,1 @@
+json.partial! 'table', table: @table, errors: @errors

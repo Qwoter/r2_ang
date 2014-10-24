@@ -3,17 +3,19 @@ r2_ang = angular.module('r2_ang',[
   'ngRoute',
   'controllers',
   'ngResource',
-  'angular-flash.service',
-  'angular-flash.flash-alert-directive'
+  'angular-growl',
+  'ngAnimate',
 ])
 
-r2_ang.config([ '$routeProvider', 'flashProvider',
-  ($routeProvider,flashProvider)->
+r2_ang.config([ '$routeProvider', '$provide', '$httpProvider', 'growlProvider',
+  ($routeProvider,$provide,$httpProvider,growlProvider)->
+    $provide.factory "globalErrorMessage", ($q, growl) ->
+      responseError: (rejection) ->
+        growl.error(rejection.data.errors) if rejection.data
+        $q.reject rejection
 
-    flashProvider.errorClassnames.push("alert-danger")
-    flashProvider.warnClassnames.push("alert-warning")
-    flashProvider.infoClassnames.push("alert-info")
-    flashProvider.successClassnames.push("alert-success")
+    growlProvider.globalTimeToLive(5000);
+    $httpProvider.interceptors.push "globalErrorMessage"
 
     $routeProvider
       .when('/',
@@ -22,12 +24,24 @@ r2_ang.config([ '$routeProvider', 'flashProvider',
       ).when('/recipes/new',
         templateUrl: "form.html"
         controller: 'RecipeController'
-       ).when('/recipes/:recipeId',
+      ).when('/recipes/:recipeId',
          templateUrl: "show.html"
          controller: 'RecipeController'
       ).when('/recipes/:recipeId/edit',
         templateUrl: "form.html"
         controller: 'RecipeController'
+      ).when('/tables',
+        templateUrl: "tables/index.html"
+        controller: 'TablesController'
+      ).when('/tables/new',
+        templateUrl: "tables/form.html"
+        controller: 'TableController'
+      ).when('/tables/:tableId',
+         templateUrl: "tables/show.html"
+         controller: 'TableController'
+      ).when('/tables/:tableId/edit',
+        templateUrl: "tables/form.html"
+        controller: 'TableController'
       )
 ])
 
