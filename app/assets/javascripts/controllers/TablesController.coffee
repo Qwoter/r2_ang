@@ -1,7 +1,7 @@
 controllers = angular.module('controllers')
-controllers.controller("TablesController", [ '$scope', '$routeParams', '$location', '$resource',
-  ($scope,$routeParams,$location,$resource)->
-    Table = $resource('/tables/:tableId', { tableId: "@id", format: 'json' })
+controllers.controller("TablesController", [ '$scope', '$routeParams', '$location', 'tableService',
+  ($scope,$routeParams,$location,tableService)->
+    Table = tableService.getAll()
 
     $scope.tables = Table.query()
     $scope.view = (tableId)-> $location.path("/tables/#{tableId}")
@@ -9,14 +9,9 @@ controllers.controller("TablesController", [ '$scope', '$routeParams', '$locatio
     $scope.edit      = (tableId)-> $location.path("/tables/#{tableId}/edit")
 ])
 
-controllers.controller("TableController", [ '$scope', '$routeParams', '$resource', '$location',
-  ($scope,$routeParams,$resource,$location)->
-    Table = $resource('/tables/:tableId', { tableId: "@id", format: 'json' },
-      {
-        'save':   {method:'PUT'},
-        'create': {method:'POST'}
-      }
-    )
+controllers.controller("TableController", [ '$scope', '$routeParams', '$location', 'tableService',
+  ($scope,$routeParams,$location,tableService)->
+    Table = tableService.getCRUD()
 
     if $routeParams.tableId
       Table.get({tableId: $routeParams.tableId},
@@ -38,7 +33,7 @@ controllers.controller("TableController", [ '$scope', '$routeParams', '$resource
 
     $scope.save = ->
       onError = (_httpResponse)->
-        $scope.table.number = _httpResponse.data.number if _httpResponse.data
+        $scope.table.number = _httpResponse.data.number if _httpResponse.dataa
 
       if $scope.table.id
         $scope.table.$save(
@@ -52,4 +47,17 @@ controllers.controller("TableController", [ '$scope', '$routeParams', '$resource
     $scope.delete = ->
       $scope.table.$delete()
       $scope.back()
+
+    $scope.dateModel = new Date()
+    $scope.dateOptions =
+      formatYear: "yy"
+      startingDay: 1
+
+    $scope.open = ($event) ->
+      $event.preventDefault()
+      $event.stopPropagation()
+      $scope.opened = true
+
+    $scope.formats = [ "dd-MMMM-yyyy", "yyyy/MM/dd", "dd.MM.yyyy", "shortDate" ]
+    $scope.format = $scope.formats[0]
 ])

@@ -7,6 +7,7 @@
     "angular-resource": "latest",
     "angular-mocks": "latest",
     "angular-growl-v2": "latest",
-    "angular-animate": "latest"
+    "angular-animate": "latest",
+    "angular-bootstrap": "latest"
   }
 }

@@ -18,4 +18,5 @@
 //= require angular-resource/angular-resource
 //= require angular-growl-v2/build/angular-growl
 //= require angular-animate/angular-animate
+//= require angular-bootstrap/ui-bootstrap-tpls
 //= require_tree .

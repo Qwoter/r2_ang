@@ -10,7 +10,7 @@ describe Table do
   end
 
   it "number must be uniq" do
-    Table.create!(number: 1)
+    create(:table)
 
     expect(build(:table)).to_not be_valid
   end

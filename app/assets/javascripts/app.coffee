@@ -3,8 +3,11 @@ r2_ang = angular.module('r2_ang',[
   'ngRoute',
   'controllers',
   'ngResource',
+  'directives',
   'angular-growl',
   'ngAnimate',
+  'services',
+  'ui.bootstrap'
 ])
 
 r2_ang.config([ '$routeProvider', '$provide', '$httpProvider', 'growlProvider',
@@ -46,3 +49,5 @@ r2_ang.config([ '$routeProvider', '$provide', '$httpProvider', 'growlProvider',
 ])
 
 controllers = angular.module('controllers',[])
+services = angular.module('services', [])
+directives = angular.module('directives', [])

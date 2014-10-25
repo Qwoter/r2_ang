@@ -1,25 +1,25 @@
-require 'spec_helper'
+require 'rails_helper'
 
 describe TablesController do
   render_views
   describe "index" do
-    before do
-      Table.create!(number: '1')
-      Table.create!(number: '2')
-      Table.create!(number: '3')
-      Table.create!(number: '4')
-      Table.create!(number: '5')
-
-      xhr :get, :index, format: :json
-    end
-
     subject(:results) { JSON.parse(response.body) }
 
-    def extract_name
+    def extract_number
       ->(object) { object["number"] }
     end
 
     context "when there are tables" do
+      before do
+        create(:table, number: '1')
+        create(:table, number: '2')
+        create(:table, number: '3')
+        create(:table, number: '4')
+        create(:table, number: '5')
+
+        xhr :get, :index, format: :json
+      end
+
       it 'should 200' do
         expect(response.status).to eq(200)
       end
@@ -27,10 +27,10 @@ describe TablesController do
         expect(results.size).to eq(5)
       end
       it "should include 'table #5'" do
-        expect(results.map(&extract_name)).to include('5')
+        expect(results.map(&extract_number)).to include('5')
       end
       it "should include 'table #2'" do
-        expect(results.map(&extract_name)).to include('2')
+        expect(results.map(&extract_number)).to include('2')
       end
     end
 
@@ -57,7 +57,7 @@ describe TablesController do
 
     context "when the table exists" do
       let(:table) { 
-        Table.create!(number: '1') 
+        create(:table) 
       }
       let(:table_id) { table.id }
 
@@ -83,22 +83,24 @@ describe TablesController do
   end
 
   describe "update" do
-    let(:table) { 
-      Table.create!(number: '1') 
-    }
+    context "on successful update" do
+      let(:table) { 
+        create(:table, number: '1') 
+      }
 
-    before do
-      xhr :put, :update, format: :json, id: table.id, table: { number: "1" }
-      table.reload
+      before do
+        xhr :put, :update, format: :json, id: table.id, table: { number: "1" }
+        table.reload
+      end
+
+      it { expect(response.status).to eq(204) }
+      it { expect(table.number).to eq("1") }
     end
-
-    it { expect(response.status).to eq(204) }
-    it { expect(table.number).to eq("1") }
   end
 
   describe "destroy" do
     let(:table_id) { 
-      Table.create!(number: '1').id
+      create(:table).id
     }
 
     before do

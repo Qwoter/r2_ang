@@ -26,6 +26,5 @@ feature "Creating, editing, and deleting a table", js: true do
     click_on "Delete"
 
     expect(Table.where(:number => 2).first).to be_nil
-
   end
 end
