@@ -12,9 +12,8 @@
 <section class="row" ng-if="tables">
   <ul class="list-unstyled">    <li ng-repeat="table in tables">
       <section class="well col-md-6 col-md-offset-3">
-        <h1 class="h3 col-md-6 text-right" style="margin-top: 0">
-        <h1 class="h3 col-md-6 text-right" style="margin-top: 0"><a href ng-click="view(table.id)" >{{table.number}}</a></h1>
-        <div class="col-md-6">
+        <h1 class="h3 col-md-6 text-left" style="margin-top: 0"><a href ng-click="view(table.id)" >{{table.number}}</a></h1>
+        <div class="col-md-6 text-right">
           <button ng-click="edit(table.id)" class="btn btn-info">Edit</button>
         </div>
       </section>

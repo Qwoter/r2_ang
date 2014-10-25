@@ -12,11 +12,6 @@ r2_ang = angular.module('r2_ang',[
 
 r2_ang.config([ '$routeProvider', '$provide', '$httpProvider', 'growlProvider',
   ($routeProvider,$provide,$httpProvider,growlProvider)->
-    $provide.factory "globalErrorMessage", ($q, growl) ->
-      responseError: (rejection) ->
-        growl.error(rejection.data.errors) if rejection.data
-        $q.reject rejection
-
     growlProvider.globalTimeToLive(5000);
     $httpProvider.interceptors.push "globalErrorMessage"
 
