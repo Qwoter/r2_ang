@@ -15,6 +15,7 @@ controllers.controller("ReservationController", [ '$scope', '$routeParams', '$lo
     $scope.today = ->
       $scope.reservation = {}
       $scope.reservation.start_time = new Date()
+      $scope.reservation.end_time = new Date()
 
     if $routeParams.reservationId
       Reservation.get({reservationId: $routeParams.reservationId},
