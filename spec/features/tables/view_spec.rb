@@ -2,11 +2,11 @@ require 'spec_helper.rb'
 
 feature "Navigating to tables", js: true do
   before do
-    Table.create!(number: '1')
-    Table.create!(number: '2')
-    Table.create!(number: '3')
-    Table.create!(number: '4')
-    Table.create!(number: '5')
+    create(:table, number: '1')
+    create(:table, number: '2')
+    create(:table, number: '3')
+    create(:table, number: '4')
+    create(:table, number: '5')
   end
   
   scenario "finding tables" do

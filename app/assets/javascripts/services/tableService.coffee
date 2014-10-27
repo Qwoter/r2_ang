@@ -1,7 +1,7 @@
 services = angular.module('services')
 services.factory("tableService", ['$resource',
   ($resource) ->
-    getCRUD: () ->
+    setup: () ->
       $resource('/tables/:tableId', { tableId: "@id", format: 'json' },
         {
           'save':   {method:'PUT'},
@@ -10,5 +10,5 @@ services.factory("tableService", ['$resource',
       )
 
     getAll: () ->
-      $resource('/tables/:tableId', { tableId: "@id", format: 'json' })
+      $resource('/tables', { format: 'json' }).query()
 ])

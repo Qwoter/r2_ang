@@ -1,0 +1,21 @@
+<section class="col-md-6 col-md-offset-3">
+  <article class="panel panel-info">
+    <header class="panel-heading"><h1>{{reservation.additional_info}}</h1></header>
+    <p class="panel-body">
+      Table: {{ reservation.table_number }}<br />
+      Start Time: {{ reservation.start_time | date : "medium" }}<br />
+      End Time: {{reservation.end_time | date : "medium" }}
+    </p>
+  </article>
+  <section>
+    <div class="col-md-3">
+      <button ng-click="back()" class="btn btn-default">
+        &larr; Back
+      </button>
+    </div>
+    <div class="col-md-9 text-right">
+      <button ng-click="edit()" class="btn btn-info"> Edit </button>
+      <button ng-click="delete()" class="btn btn-danger"> Delete </button>
+    </div>
+  </section>
+</section>

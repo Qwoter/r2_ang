@@ -1,0 +1,28 @@
+<header class="row">
+  <h1 class="text-center col-md-6 col-md-offset-3">Reservations</h1>
+</header>
+<section class="row">
+  <form>
+    <div class="form-group col-md-6 col-md-offset-3 text-center">
+      <button ng-click="newReservation()" class="btn btn-info btn-lg">New Reservation</button>
+    </div>
+  </form>
+</section>
+<hr>
+<section class="row" ng-if="reservations">
+  <ul class="list-unstyled">
+    <li ng-repeat="reservation in reservations">
+      <section class="well col-md-6 col-md-offset-3">
+        <h1 class="h3 col-md-6 text-left" style="margin-top: 0"><a href ng-click="view(reservation.id)" >{{reservation.additional_info}}</a></h1>
+        <div class="col-md-6 text-right">
+          <button ng-click="edit(reservation.id)" class="btn btn-info">Edit</button>
+        </div>
+        <div class="col-md-9 text-left">
+          Table: {{ reservation.table_number }} |
+          Start Time: {{ reservation.start_time | date : "medium" }} |
+          End Time: {{reservation.end_time | date : "medium" }}
+        </div>
+      </section>
+    </li>
+  </ul>
+</section>

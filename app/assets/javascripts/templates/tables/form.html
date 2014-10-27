@@ -1,3 +1,8 @@
+<header class="row ng-scope">
+  <h1 class="text-center col-md-6 col-md-offset-3">Table</h1>
+</header>
+<hr class="ng-scope">
+
 <form class="form-horizontal" role="form" class="edit-user">
   <div class="form-group" ng-class="{'has-warning has-feedback':errors.name}">
     <label 
@@ -8,9 +13,8 @@
     <div class="col-md-5">
       <input type="text" name="number" class="form-control" placeholder="e.g. 42" ng-model="table.number">
     </div>
-
-
   </div>
+
   <div class="form-group">
     <div class="col-md-offset-2 col-md-3">
       <button class="btn btn-default" ng-click="cancel()"> Cancel</button>
@@ -19,22 +23,4 @@
       <button class="btn btn-primary" ng-click="save()"> Save </button>
     </div>
   </div>
-</section>
-
-{{dateModel}}
-    <h4>Popup</h4>
-    <div class="row">
-        <div class="col-md-6">
-            <p class="input-group">
-              <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="dateModel" is-open="opened" min-date="minDate" max-date="'2015-06-22'" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" />
-              <span class="input-group-btn">
-                <button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
-              </span>
-            </p>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-6">
-            <label>Format:</label> <select class="form-control" ng-model="format" ng-options="f for f in formats"><option></option></select>
-        </div>
-    </div>
+</form>

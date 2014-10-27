@@ -1,17 +1,15 @@
 controllers = angular.module('controllers')
 controllers.controller("TablesController", [ '$scope', '$routeParams', '$location', 'tableService',
   ($scope,$routeParams,$location,tableService)->
-    Table = tableService.getAll()
-
-    $scope.tables = Table.query()
+    $scope.tables = tableService.getAll()
     $scope.view = (tableId)-> $location.path("/tables/#{tableId}")
     $scope.newTable = -> $location.path("/tables/new")
     $scope.edit      = (tableId)-> $location.path("/tables/#{tableId}/edit")
 ])
 
-controllers.controller("TableController", [ '$scope', '$routeParams', '$location', 'tableService',
-  ($scope,$routeParams,$location,tableService)->
-    Table = tableService.getCRUD()
+controllers.controller("TableController", [ '$scope', '$routeParams', '$location', 'tableService', 'growl',
+  ($scope,$routeParams,$location,tableService, growl) ->
+    Table = tableService.setup()
 
     if $routeParams.tableId
       Table.get({tableId: $routeParams.tableId},
@@ -33,31 +31,33 @@ controllers.controller("TableController", [ '$scope', '$routeParams', '$location
 
     $scope.save = ->
       onError = (_httpResponse)->
-        $scope.table.number = _httpResponse.data.number if _httpResponse.dataa
+        $scope.table.number = _httpResponse.data.number if _httpResponse.data
 
       if $scope.table.id
         $scope.table.$save(
-          ( ()-> $location.path("/tables/#{$scope.table.id}") ),
+          (
+            ()-> 
+              $location.path("/tables/#{$scope.table.id}")
+              growl.success("Successfully Saved")
+          ),
           onError)
       else
         Table.create($scope.table,
-          ( (newTable)-> $location.path("/tables/#{newTable.id}") )
+          (
+            (newTable)->
+              $location.path("/tables/#{newTable.id}")
+              growl.success("Successfully Created")
+          )
         )
 
     $scope.delete = ->
       $scope.table.$delete()
       $scope.back()
 
-    $scope.dateModel = new Date()
-    $scope.dateOptions =
-      formatYear: "yy"
-      startingDay: 1
+
 
     $scope.open = ($event) ->
       $event.preventDefault()
       $event.stopPropagation()
       $scope.opened = true
-
-    $scope.formats = [ "dd-MMMM-yyyy", "yyyy/MM/dd", "dd.MM.yyyy", "shortDate" ]
-    $scope.format = $scope.formats[0]
 ])

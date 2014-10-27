@@ -8,6 +8,7 @@
     "angular-mocks": "latest",
     "angular-growl-v2": "latest",
     "angular-animate": "latest",
-    "angular-bootstrap": "latest"
+    "angular-bootstrap": "latest",
+    "angular-ui-bootstrap-datetimepicker": "latest"
   }
 }

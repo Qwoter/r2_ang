@@ -40,6 +40,21 @@ r2_ang.config([ '$routeProvider', '$provide', '$httpProvider', 'growlProvider',
       ).when('/tables/:tableId/edit',
         templateUrl: "tables/form.html"
         controller: 'TableController'
+      ).when('/reservations',
+        templateUrl: "reservations/index.html"
+        controller: 'ReservationsController'
+      ).when('/reservations/new',
+        templateUrl: "reservations/form.html"
+        controller: 'ReservationController'
+      ).when('/reservations/:reservationId',
+         templateUrl: "reservations/show.html"
+         controller: 'ReservationController'
+      ).when('/reservations/:reservationId/edit',
+        templateUrl: "reservations/form.html"
+        controller: 'ReservationController'
+      ).when('/test',
+        templateUrl: "test.html"
+        controller: 'DateTimePickerDemoCtrl'
       )
 ])
 
