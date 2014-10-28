@@ -13,11 +13,10 @@
   <ul class="list-unstyled col-md-offset-2">
     <li ng-repeat="table_reservations in tables_reservations">
       <h3>Table: {{table_reservations[0]}}</h3>
-      <div style="position: relative;
+      <div id="timeline" style="position: relative;
                   height: 73px;
                   width: 724px;
                   background-color: #D8D8D8;
-                  background-image: url('/assets/24h_v3.jpg');
                   border: 2px solid gray;
                   background-repeat: no-repeat;
                   background-position-y: 40px;" ng-repeat="reservations in table_reservations" ng-if="$index != 0">
