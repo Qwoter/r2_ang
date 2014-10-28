@@ -16,13 +16,13 @@
       <div id="timeline" style="position: relative;
                   height: 73px;
                   width: 724px;
-                  background-color: #D8D8D8;
-                  border: 2px solid gray;
                   background-repeat: no-repeat;
                   background-position-y: 40px;" ng-repeat="reservations in table_reservations" ng-if="$index != 0">
         <div ng-repeat="reservation in reservations" 
-                  style="position:absolute;
+                  style="border-left: 2px solid #2c3e50;
+                  position:absolute;
                   display:inline-block;
+                  background-color:#0066FF;
                   height:40px;
                   width:{{reservation[1] - reservation[0] + 1}}px;
                   left:{{reservation[0] + 1}}px;" popover="{{reservation[3] | date : 'HH:mm:ss'}} - {{reservation[4] | date : 'HH:mm:ss'}}" popover-title="{{reservation[2]}}">
