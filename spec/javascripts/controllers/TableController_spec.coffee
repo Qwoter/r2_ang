@@ -42,7 +42,7 @@ describe "TableController", ->
       it 'loads the given table', ->
         httpBackend.flush()
         expect(scope.table).toEqualData(fakeTable)
-        
+
     describe 'table is not found', ->
       beforeEach(setupController(false))
       it 'loads the given table', ->
@@ -91,4 +91,4 @@ describe "TableController", ->
       it 'posts to the backend', ->
         scope.delete()
         httpBackend.flush()
-        expect(location.path()).toBe("/tables")
+        expect(location.path()).toBe("/")

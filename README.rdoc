@@ -12,5 +12,7 @@ Tests include:
 * Client-side
 
 To run:
+
 <tt>rspec</tt>
+
 <tt>rake teaspoon</tt>
