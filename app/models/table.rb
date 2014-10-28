@@ -5,19 +5,22 @@ class Table < ActiveRecord::Base
   def self.get_tables_for_calendar(selected_day)
     tables_reservation = []
     Table.all.each do |table|
-      reservations = table.reservations.where("table_id = ? AND start_time >= ? AND start_time <= ?", table.id, selected_day, selected_day + 1.day).order(:start_time)
+      reservations = table.reservations.where("table_id = ? AND (( start_time >= ? AND start_time <= ? ) OR ( end_time >= ? AND end_time <= ? ))", table.id, selected_day, selected_day + 1.day, selected_day, selected_day + 1.day).order(:start_time)
       if !reservations.blank?
         result = reservations.map { |r|
           start_time_raw = r.start_time.in_time_zone('Europe/Kiev')
           end_time_raw = r.end_time.in_time_zone('Europe/Kiev')
 
-          if start_time_raw.day < end_time_raw.day
+          if start_time_raw.day < end_time_raw.day && selected_day.day == start_time_raw.day
             end_time = 24 * 60 / 2
-          else 
+            start_time = (start_time_raw.hour * 60 + start_time_raw.min)/2
+          elsif start_time_raw.day < end_time_raw.day && selected_day.day == end_time_raw.day
+            end_time = (end_time_raw.hour * 60 + end_time_raw.min)/2
+            start_time = 0
+          else
+            start_time = (start_time_raw.hour * 60 + start_time_raw.min)/2
             end_time = (end_time_raw.hour * 60 + end_time_raw.min)/2
           end
-
-          start_time = (start_time_raw.hour * 60 + start_time_raw.min)/2
 
           [start_time, end_time, r.additional_info, start_time_raw, end_time_raw]
         }
