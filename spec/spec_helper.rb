@@ -33,9 +33,10 @@ RSpec.configure do |config|
     self.use_transactional_fixtures = true
     DatabaseCleaner.clean
   end
-
+  
   config.include FactoryGirl::Syntax::Methods
   config.treat_symbols_as_metadata_keys_with_true_values = true
   config.infer_base_class_for_anonymous_controllers = false
   config.order = "random"
+  Capybara.default_wait_time = 100000
 end

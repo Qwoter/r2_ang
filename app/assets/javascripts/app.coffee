@@ -17,18 +17,6 @@ r2_ang.config([ '$routeProvider', '$provide', '$httpProvider', 'growlProvider',
 
     $routeProvider
       .when('/',
-        templateUrl: "index.html"
-        controller: 'RecipesController'
-      ).when('/recipes/new',
-        templateUrl: "form.html"
-        controller: 'RecipeController'
-      ).when('/recipes/:recipeId',
-         templateUrl: "show.html"
-         controller: 'RecipeController'
-      ).when('/recipes/:recipeId/edit',
-        templateUrl: "form.html"
-        controller: 'RecipeController'
-      ).when('/tables',
         templateUrl: "tables/index.html"
         controller: 'TablesController'
       ).when('/tables/new',
@@ -52,9 +40,10 @@ r2_ang.config([ '$routeProvider', '$provide', '$httpProvider', 'growlProvider',
       ).when('/reservations/:reservationId/edit',
         templateUrl: "reservations/form.html"
         controller: 'ReservationController'
-      ).when('/test',
-        templateUrl: "test.html"
-        controller: 'DateTimePickerDemoCtrl'
+      ).when('/timeline',
+        templateUrl: "timeline.html"
+        controller: 'TimelineController'
+
       )
 ])
 

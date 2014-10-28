@@ -32,7 +32,7 @@ class TablesController < ApplicationController
   end
 
   def destroy
-    table.destroy
+    @table.destroy
     head :no_content
   end
 

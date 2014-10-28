@@ -16,8 +16,20 @@ class Reservation < ActiveRecord::Base
   end
 
   def reservations_cant_intersect
-    if !table.reservations.where("id <> ? AND table_id =? AND start_time >= ? AND end_time <?", id, table_id, start_time, end_time).blank?
-      errors.add(:reservation, "time can't intersect with other reservations")
+    if id 
+      if !table.reservations.where("id <> ? AND table_id = ? AND 
+        (
+          ( start_time >= ? AND start_time < ? ) OR ( end_time >= ? AND end_time < ? ) OR ( start_time <= ? AND end_time >= ? )
+        )", id, table_id, start_time, end_time, start_time, end_time, start_time, end_time).blank?
+        errors.add(:reservation, "time can't intersect with other reservations")
+      end
+    else
+      if !table.reservations.where("table_id = ? AND 
+        (
+          ( start_time >= ? AND start_time < ? ) OR ( end_time >= ? AND end_time < ? ) OR ( start_time <= ? AND end_time >= ? )
+        )", table_id, start_time, end_time, start_time, end_time, start_time, end_time).blank?
+        errors.add(:reservation, "time can't intersect with other reservations")
+      end
     end
   end
 

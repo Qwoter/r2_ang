@@ -1,6 +1,6 @@
 controllers = angular.module('controllers')
 controllers.controller("TablesController", [ '$scope', '$routeParams', '$location', 'tableService',
-  ($scope,$routeParams,$location,tableService)->
+  ($scope,$routeParams,$location,tableService) ->
     $scope.tables = tableService.getAll()
     $scope.view = (tableId)-> $location.path("/tables/#{tableId}")
     $scope.newTable = -> $location.path("/tables/new")
@@ -21,13 +21,13 @@ controllers.controller("TableController", [ '$scope', '$routeParams', '$location
     else
       $scope.table = {}
 
-    $scope.back   = -> $location.path("/tables")
+    $scope.back   = -> $location.path("/")
     $scope.edit   = -> $location.path("/tables/#{$scope.table.id}/edit")
     $scope.cancel = ->
       if $scope.table.id
         $location.path("/tables/#{$scope.table.id}")
       else
-        $location.path("/tables")
+        $location.path("/")
 
     $scope.save = ->
       onError = (_httpResponse)->
@@ -35,29 +35,18 @@ controllers.controller("TableController", [ '$scope', '$routeParams', '$location
 
       if $scope.table.id
         $scope.table.$save(
-          (
-            ()-> 
+          ( ()-> 
               $location.path("/tables/#{$scope.table.id}")
-              growl.success("Successfully Saved")
-          ),
+              growl.success("Successfully Saved") ),
           onError)
       else
         Table.create($scope.table,
-          (
-            (newTable)->
+          ( (newTable)->
               $location.path("/tables/#{newTable.id}")
-              growl.success("Successfully Created")
-          )
+              growl.success("Successfully Created") )
         )
 
     $scope.delete = ->
       $scope.table.$delete()
       $scope.back()
-
-
-
-    $scope.open = ($event) ->
-      $event.preventDefault()
-      $event.stopPropagation()
-      $scope.opened = true
 ])

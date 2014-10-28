@@ -1,0 +1,1 @@
+json.array! @tables_reservations

@@ -4,7 +4,7 @@ controllers.controller("ReservationsController", [ '$scope', '$routeParams', '$l
     $scope.reservations = reservationService.getAll()
     $scope.view = (reservationId)-> $location.path("/reservations/#{reservationId}")
     $scope.newReservation = -> $location.path("/reservations/new")
-    $scope.edit      = (reservationId)-> $location.path("/reservations/#{reservationId}/edit")
+    $scope.edit = (reservationId)-> $location.path("/reservations/#{reservationId}/edit")
 ])
 
 controllers.controller("ReservationController", [ '$scope', '$routeParams', '$location', 'reservationService', 'tableService', '$filter','growl'
@@ -75,6 +75,4 @@ controllers.controller("ReservationController", [ '$scope', '$routeParams', '$lo
       $scope.opened2 = true
 
     $scope.changed = ->
-      # $scope.reservation.start_time = Date.parse $scope.reservation.start_time
-      console.log "Time changed to: " + $scope.mytime
   ] )

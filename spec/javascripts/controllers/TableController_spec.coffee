@@ -27,8 +27,7 @@ describe "TableController", ->
 
         httpBackend.expectGET(request).respond(results[0],results[1])
 
-      ctrl        = $controller('TableController',
-                                $scope: scope)
+      ctrl = $controller('TableController', $scope: scope)
     )
 
   beforeEach(module("r2_ang"))
@@ -43,6 +42,7 @@ describe "TableController", ->
       it 'loads the given table', ->
         httpBackend.flush()
         expect(scope.table).toEqualData(fakeTable)
+        
     describe 'table is not found', ->
       beforeEach(setupController(false))
       it 'loads the given table', ->

@@ -10,7 +10,7 @@ feature "Navigating to tables", js: true do
   end
   
   scenario "finding tables" do
-    visit '/'
+    visit '/#/Reservations'
     click_on "Tables"
 
     expect(page).to have_content("1")

@@ -2,7 +2,7 @@ require 'spec_helper.rb'
 
 feature "Creating, editing, and deleting a table", js: true do
   scenario "CRUD a table" do
-    visit '/#/tables'
+    visit '/#/'
     click_on "New Table"
 
     fill_in "number", with: "1"
@@ -19,7 +19,7 @@ feature "Creating, editing, and deleting a table", js: true do
 
     expect(page).to have_content("2")
 
-    visit "/#/tables"
+    visit "/#/"
 
     click_on "2"
 
